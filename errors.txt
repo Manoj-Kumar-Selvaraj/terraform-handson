@@ -1,0 +1,33 @@
+# Terraform Errors Documentation
+
+## Error 1: ACL Not Supported in S3 Bucket
+- **Error Message**: 
+- **Terraform Version**: `v1.5.0`
+- **Module/Resource Affected**: S3 bucket ACL configuration.
+- **Date**: 2024-11-07
+- **Steps to Reproduce**: 
+1. Define an S3 bucket in Terraform.
+2. Attach an ACL to the S3 bucket.
+3. Apply the configuration.
+- **Solution Applied**: 
+- Removed the ACL configuration, as the S3 bucket with default settings does not support ACLs in this context.
+- Used `aws_s3_bucket_acl` resource as needed for specific permissions.
+- **Reference**: 
+- AWS S3 documentation: [ACLs in Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html)
+- **Lessons Learned**: ACLs are not recommended for new S3 buckets by default; it’s better to manage access through bucket policies or IAM roles instead.
+
+## Error 2: Reference to Undeclared Input Variable
+- **Error Message**: 
+- **Terraform Version**: `v1.5.0`
+- **Module/Resource Affected**: S3 bucket module input variables.
+- **Date**: 2024-11-07
+- **Steps to Reproduce**: 
+1. Attempted to pass variables to a Terraform module that were not declared in the module.
+2. Ran `terraform plan`.
+- **Solution Applied**: 
+- Declared the missing input variables (`bucket_name`, `tag_name`, `project_name`, etc.) inside the module's `variables.tf` file.
+- Ensured the variables were referenced correctly in both the root `main.tf` and module files.
+- **Reference**: 
+- Terraform documentation on [Input Variables](https://www.terraform.io/docs/language/values/variables.html)
+- **Lessons Learned**: Always ensure that variables are properly declared in the module before passing values from the root configuration.
+
