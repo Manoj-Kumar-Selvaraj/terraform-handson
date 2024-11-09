@@ -1,4 +1,5 @@
-bucket_name  = "Manojawstest"
+bucket_name  = "manojawstestindia"
 tag_name     = "Testing"
 project_name = "aws-infrastructure"
 version_flag = "Enabled"
+source_ip = "192.168.1.1/32"

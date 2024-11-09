@@ -1,9 +1,15 @@
+module "iam" {
+  source = "./modules/iam"
+}
 module "s3_bucket" {
   source      = "./modules/s3"  # Path to your module
   bucket_name = var.bucket_name
   tag_name    = var.tag_name
   project_name = var.project_name
   version_flag = var.version_flag
+  source_ip = var.source_ip
+  lambda_sns_policy_attachment = module.iam.lambda_sns_policy_attachment
+  depends_on = [module.iam]
 }
 
 # Declare the variables in root module
@@ -27,5 +33,9 @@ variable "version_flag" {
   type        = string
 }
 
+variable "source_ip" {
+  description = "The IP address that should be allowed access to the S3 bucket"
+  type        = string
+}
 
-# Optional: You can add backend configuration here if needed for state management
+

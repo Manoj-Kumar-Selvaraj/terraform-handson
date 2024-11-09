@@ -19,3 +19,12 @@ variable "version_flag" {
   type        = string
 }
 
+variable "source_ip" {
+  description = "The IP address that should be allowed access to the S3 bucket"
+  type        = string
+}
+
+variable "lambda_sns_policy_attachment" {
+  description = "Dependency on IAM policy attachment"
+  type        = string
+}
