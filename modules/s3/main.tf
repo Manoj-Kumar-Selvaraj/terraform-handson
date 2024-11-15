@@ -25,7 +25,16 @@ resource "aws_s3_bucket" "practice" {
       }
     }
   }
-  
+  server_side_encryption_configuration {
+    
+     rule { 
+        apply_server_side_encryption_by_default { 
+
+            sse_algorithm = "AES256" 
+
+            }
+        } 
+    }
 }
 
 # Versioning Configuration for the S3 Bucket
@@ -117,10 +126,3 @@ resource "aws_sns_topic_subscription" "email_subscription" {
   endpoint  = "ss.mano1998@gmail.com"
 }
 
-resource "aws_s3_object" "practice_object" {
-  bucket = aws_s3_bucket.practice.bucket 
-  key    = "terrafrom-object.txt"  # The name of the file in the bucket
-  source = "/workspaces/terraform-handson/errors.txt"  # The local file you want to upload
-  acl    = "private"
-  etag = filemd5("/workspaces/terraform-handson/errors.txt")
-}
